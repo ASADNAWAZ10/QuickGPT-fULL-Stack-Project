@@ -1,6 +1,6 @@
 import { request } from 'express'
 import stripe from 'stripe'
-import Transaction from '../models/Transaction'
+import Transaction from '../models/Transaction.js'
 
 export const stripeWebhook = async (req, res) => {
     const stripe = new stripe(process.env.STRIPE_SECRET_KEY)

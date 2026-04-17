@@ -1,5 +1,5 @@
 import express from 'express'
-import protect from '../middlewere/auth';
+import protect from '../middlewere/auth.js';
 import { imageGeneratorController, textMessageController } from '../controller/messageController.js';
 
 const messageRouter = express.Router();
