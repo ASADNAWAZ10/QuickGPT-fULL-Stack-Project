@@ -2,10 +2,10 @@ import express from 'express'
 import 'dotenv/config'
 import cors from 'cors'
 import connectDB from './config/db.js';
-import userRouter from './routes/UserRoutes.js';
-import chatRouter from './routes/chatRoutes.js';
-import messageRouter from './routes/messageRoutes.js';
-import creditRouter from './routes/creditRoutes.js';
+import UserRoutes from './routes/UserRoutes.js';
+import chatRoutes from './routes/chatRoutes.js';
+import messageRoutes from './routes/messageRoutes.js';
+import creditRoutes from './routes/creditRoutes.js';
 import { stripeWebhook } from './controller/webhook.js';
 
 const app = express();
@@ -20,10 +20,10 @@ app.use(express.json())
 
 //Routes
 app.get('/', (res, req) => res.send('server is live'))
-app.get('/api/user', userRouter)
-app.use('/api/chat', chatRouter)
-app.use('/api/message', messageRouter)
-app.use('/api/credit', creditRouter )
+app.get('/api/user', UserRoutes)
+app.use('/api/chat', chatRoutes)
+app.use('/api/message', messageRoutes)
+app.use('/api/credit', creditRoutes )
 
 const PORT = process.env.PORT || 3000
 
@@ -32,5 +32,7 @@ if (process.env.NODE_ENV !== "production") {
     console.log(`Server running on ${PORT}`);
   });
 }
+
+
 
 export default app;
