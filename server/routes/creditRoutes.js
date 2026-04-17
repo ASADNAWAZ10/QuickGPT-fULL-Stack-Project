@@ -1,6 +1,6 @@
 import express from 'express'
 import { getPlans, purchasePlans } from '../controller/creditsController.js';
-import {protect} from '../middlewere/auth.js'
+import protect from '../middlewere/auth.js'
 
 const creditRouter = express.Router();
 
