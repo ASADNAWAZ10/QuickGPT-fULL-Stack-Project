@@ -10,9 +10,9 @@ import { stripeWebhook } from './controller/webhook.js';
 
 const app = express();
 
- connectDB().catch(err => console.log("db error", err))
-
 app.post('/api/stripe', express.raw({type: 'application/json'}),stripeWebhook)
+
+await connectDB().catch(err => console.log("db error", err))
 
 //Middlewere
 app.use(cors())
