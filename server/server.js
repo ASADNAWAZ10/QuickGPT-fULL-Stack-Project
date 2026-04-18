@@ -10,7 +10,7 @@ import { stripeWebhook } from './controller/webhook.js';
 
 const app = express();
 
-await connectDB()
+ connectDB().catch(err => console.log("db error", err))
 
 app.post('/api/stripe', express.raw({type: 'application/json'}),stripeWebhook)
 
