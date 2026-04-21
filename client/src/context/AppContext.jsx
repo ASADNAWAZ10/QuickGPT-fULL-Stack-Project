@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { dummyChats, dummyUserData } from "../assets/assets";
 import axios from 'axios'
 import toast from "react-hot-toast";
 
@@ -15,6 +14,7 @@ export const AppContextProvider = ({children}) => {
     const [chats, setChats] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null)
     const [theme, setTheme] = useState(localStorage.getItem ('theme') || 'light')
+    const [token, setToken] = useState(localStorage.getItem('token'))
     const [loadingUser, setLoadingUser] = useState(true)
 
     const fetchUser = async () => {

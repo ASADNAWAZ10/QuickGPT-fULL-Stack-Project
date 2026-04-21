@@ -1,15 +1,42 @@
 import React, { useEffect, useState } from 'react'
-import {  dummyPlans } from '../assets/assets'
 import Loading from './Loading'
+import { useAppContext } from '../context/AppContext'
+import toast from 'react-hot-toast'
 
 const Credits = () => {
 
    const [plans, setPlan] = useState([])
    const [loading, setLoading] = useState(true)
+   const {axios, token} = useAppContext()
 
    const fetchPlans = async () => {
-    setPlan(dummyPlans)
-    setLoading(false)
+   try {
+    const {data} = await axios.get('/api/credit/plan', {
+      header: {Authorization: token}
+    })
+    if (data.success){
+      setPlan(data.plans)
+    }else {
+      toast.error(data.message || 'failed to fetch plans')
+    }
+   } catch (error) {
+    toast.error(error.message)
+   }
+   setLoading(false)
+   }
+
+   const purchasePlan = async (planId) => {
+    try {
+      const {data} = await axios.post('/api/credit/purchased', {planId}, 
+        {header: {Authorization: token}})
+        if(data.success){
+          window.location.href = data.url
+        }else {
+          toast.error()
+        }
+    } catch (error) {
+      toast.error(error.message)
+    }
    }
 
    useEffect(()=>{
@@ -46,7 +73,8 @@ const Credits = () => {
                ))}
                </ul>
             </div>
-            <button className='mt-6 bg-purple-600 hover:bg-purple-800 active:bg-purple-600 
+            <button onClick={()=> toast.promise(purchasePlan(plan._id), {loading: 'loading......'})}
+            className='mt-6 bg-purple-600 hover:bg-purple-800 active:bg-purple-600 
             text-white font-medium py-2 rounded transition-colors cursor-pointer'>
                 Buy Now
             </button>
